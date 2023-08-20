@@ -1,0 +1,781 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BEGINTABLE
+    CLOSEDIV
+    CLOSESTYLE
+    CLOSETABLE
+    GARBAGE
+    OPENDIV
+    OPENSTYLE
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> table
+Rule 2     name -> CONTENT
+Rule 3     name -> CONTENT name
+Rule 4     skiptag -> CONTENT skiptag
+Rule 5     skiptag -> OPENHREF skiptag
+Rule 6     skiptag -> CLOSEHREF skiptag
+Rule 7     skiptag -> OPENSPAN skiptag
+Rule 8     skiptag -> CLOSESPAN skiptag
+Rule 9     skiptag -> OPENHEADER skiptag
+Rule 10    skiptag -> CLOSEHEADER skiptag
+Rule 11    skiptag -> IMG skiptag
+Rule 12    skiptag -> <empty>
+Rule 13    handleData -> OPENDATA skiptag CLOSEDATA handleData
+Rule 14    handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+Rule 15    handleData -> <empty>
+Rule 16    handlerow -> OPENROW OPENHEADER CONTENT skiptag CLOSEROW handlerow
+Rule 17    handlerow -> OPENROW handleData CLOSEROW handlerow
+Rule 18    handlerow -> <empty>
+Rule 19    table -> BEGINTEAM OPENTABLE handlerow
+Rule 20    empty -> <empty>
+Rule 21    content -> CONTENT
+Rule 22    content -> empty
+
+Terminals, with rules where they appear
+
+BEGINTABLE           : 
+BEGINTEAM            : 19
+CLOSEDATA            : 13 14
+CLOSEDIV             : 
+CLOSEHEADER          : 10
+CLOSEHREF            : 6 14
+CLOSEROW             : 16 17
+CLOSESPAN            : 8 14 14
+CLOSESTYLE           : 
+CLOSETABLE           : 
+CONTENT              : 2 3 4 14 14 16 21
+GARBAGE              : 
+IMG                  : 11
+OPENDATA             : 13 14
+OPENDIV              : 
+OPENHEADER           : 9 16
+OPENHREF             : 5 14
+OPENROW              : 16 17
+OPENSPAN             : 7 14 14
+OPENSTYLE            : 
+OPENTABLE            : 19
+error                : 
+
+Nonterminals, with rules where they appear
+
+content              : 
+empty                : 22
+handleData           : 13 14 17
+handlerow            : 16 17 19
+name                 : 3
+skiptag              : 4 5 6 7 8 9 10 11 13 16
+start                : 0
+table                : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . table
+    (19) table -> . BEGINTEAM OPENTABLE handlerow
+
+    BEGINTEAM       shift and go to state 3
+
+    start                          shift and go to state 1
+    table                          shift and go to state 2
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> table .
+
+    $end            reduce using rule 1 (start -> table .)
+
+
+state 3
+
+    (19) table -> BEGINTEAM . OPENTABLE handlerow
+
+    OPENTABLE       shift and go to state 4
+
+
+state 4
+
+    (19) table -> BEGINTEAM OPENTABLE . handlerow
+    (16) handlerow -> . OPENROW OPENHEADER CONTENT skiptag CLOSEROW handlerow
+    (17) handlerow -> . OPENROW handleData CLOSEROW handlerow
+    (18) handlerow -> .
+
+    OPENROW         shift and go to state 6
+    $end            reduce using rule 18 (handlerow -> .)
+
+    handlerow                      shift and go to state 5
+
+state 5
+
+    (19) table -> BEGINTEAM OPENTABLE handlerow .
+
+    $end            reduce using rule 19 (table -> BEGINTEAM OPENTABLE handlerow .)
+
+
+state 6
+
+    (16) handlerow -> OPENROW . OPENHEADER CONTENT skiptag CLOSEROW handlerow
+    (17) handlerow -> OPENROW . handleData CLOSEROW handlerow
+    (13) handleData -> . OPENDATA skiptag CLOSEDATA handleData
+    (14) handleData -> . OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (15) handleData -> .
+
+    OPENHEADER      shift and go to state 7
+    OPENDATA        shift and go to state 9
+    CLOSEROW        reduce using rule 15 (handleData -> .)
+
+    handleData                     shift and go to state 8
+
+state 7
+
+    (16) handlerow -> OPENROW OPENHEADER . CONTENT skiptag CLOSEROW handlerow
+
+    CONTENT         shift and go to state 10
+
+
+state 8
+
+    (17) handlerow -> OPENROW handleData . CLOSEROW handlerow
+
+    CLOSEROW        shift and go to state 11
+
+
+state 9
+
+    (13) handleData -> OPENDATA . skiptag CLOSEDATA handleData
+    (14) handleData -> OPENDATA . OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    OPENSPAN        shift and go to state 13
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 12
+
+state 10
+
+    (16) handlerow -> OPENROW OPENHEADER CONTENT . skiptag CLOSEROW handlerow
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 21
+
+state 11
+
+    (17) handlerow -> OPENROW handleData CLOSEROW . handlerow
+    (16) handlerow -> . OPENROW OPENHEADER CONTENT skiptag CLOSEROW handlerow
+    (17) handlerow -> . OPENROW handleData CLOSEROW handlerow
+    (18) handlerow -> .
+
+    OPENROW         shift and go to state 6
+    $end            reduce using rule 18 (handlerow -> .)
+
+    handlerow                      shift and go to state 23
+
+state 12
+
+    (13) handleData -> OPENDATA skiptag . CLOSEDATA handleData
+
+    CLOSEDATA       shift and go to state 24
+
+
+state 13
+
+    (14) handleData -> OPENDATA OPENSPAN . OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (7) skiptag -> OPENSPAN . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    OPENSPAN        shift and go to state 25
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 26
+
+state 14
+
+    (4) skiptag -> CONTENT . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 27
+
+state 15
+
+    (8) skiptag -> CLOSESPAN . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 28
+
+state 16
+
+    (5) skiptag -> OPENHREF . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 29
+
+state 17
+
+    (6) skiptag -> CLOSEHREF . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 30
+
+state 18
+
+    (9) skiptag -> OPENHEADER . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 31
+
+state 19
+
+    (10) skiptag -> CLOSEHEADER . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 32
+
+state 20
+
+    (11) skiptag -> IMG . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 33
+
+state 21
+
+    (16) handlerow -> OPENROW OPENHEADER CONTENT skiptag . CLOSEROW handlerow
+
+    CLOSEROW        shift and go to state 34
+
+
+state 22
+
+    (7) skiptag -> OPENSPAN . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+    CLOSEROW        reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 26
+
+state 23
+
+    (17) handlerow -> OPENROW handleData CLOSEROW handlerow .
+
+    $end            reduce using rule 17 (handlerow -> OPENROW handleData CLOSEROW handlerow .)
+
+
+state 24
+
+    (13) handleData -> OPENDATA skiptag CLOSEDATA . handleData
+    (13) handleData -> . OPENDATA skiptag CLOSEDATA handleData
+    (14) handleData -> . OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (15) handleData -> .
+
+    OPENDATA        shift and go to state 9
+    CLOSEROW        reduce using rule 15 (handleData -> .)
+
+    handleData                     shift and go to state 35
+
+state 25
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN . CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (7) skiptag -> OPENSPAN . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 36
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 26
+
+state 26
+
+    (7) skiptag -> OPENSPAN skiptag .
+
+    CLOSEDATA       reduce using rule 7 (skiptag -> OPENSPAN skiptag .)
+    CLOSEROW        reduce using rule 7 (skiptag -> OPENSPAN skiptag .)
+
+
+state 27
+
+    (4) skiptag -> CONTENT skiptag .
+
+    CLOSEDATA       reduce using rule 4 (skiptag -> CONTENT skiptag .)
+    CLOSEROW        reduce using rule 4 (skiptag -> CONTENT skiptag .)
+
+
+state 28
+
+    (8) skiptag -> CLOSESPAN skiptag .
+
+    CLOSEDATA       reduce using rule 8 (skiptag -> CLOSESPAN skiptag .)
+    CLOSEROW        reduce using rule 8 (skiptag -> CLOSESPAN skiptag .)
+
+
+state 29
+
+    (5) skiptag -> OPENHREF skiptag .
+
+    CLOSEDATA       reduce using rule 5 (skiptag -> OPENHREF skiptag .)
+    CLOSEROW        reduce using rule 5 (skiptag -> OPENHREF skiptag .)
+
+
+state 30
+
+    (6) skiptag -> CLOSEHREF skiptag .
+
+    CLOSEDATA       reduce using rule 6 (skiptag -> CLOSEHREF skiptag .)
+    CLOSEROW        reduce using rule 6 (skiptag -> CLOSEHREF skiptag .)
+
+
+state 31
+
+    (9) skiptag -> OPENHEADER skiptag .
+
+    CLOSEDATA       reduce using rule 9 (skiptag -> OPENHEADER skiptag .)
+    CLOSEROW        reduce using rule 9 (skiptag -> OPENHEADER skiptag .)
+
+
+state 32
+
+    (10) skiptag -> CLOSEHEADER skiptag .
+
+    CLOSEDATA       reduce using rule 10 (skiptag -> CLOSEHEADER skiptag .)
+    CLOSEROW        reduce using rule 10 (skiptag -> CLOSEHEADER skiptag .)
+
+
+state 33
+
+    (11) skiptag -> IMG skiptag .
+
+    CLOSEDATA       reduce using rule 11 (skiptag -> IMG skiptag .)
+    CLOSEROW        reduce using rule 11 (skiptag -> IMG skiptag .)
+
+
+state 34
+
+    (16) handlerow -> OPENROW OPENHEADER CONTENT skiptag CLOSEROW . handlerow
+    (16) handlerow -> . OPENROW OPENHEADER CONTENT skiptag CLOSEROW handlerow
+    (17) handlerow -> . OPENROW handleData CLOSEROW handlerow
+    (18) handlerow -> .
+
+    OPENROW         shift and go to state 6
+    $end            reduce using rule 18 (handlerow -> .)
+
+    handlerow                      shift and go to state 37
+
+state 35
+
+    (13) handleData -> OPENDATA skiptag CLOSEDATA handleData .
+
+    CLOSEROW        reduce using rule 13 (handleData -> OPENDATA skiptag CLOSEDATA handleData .)
+
+
+state 36
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT . CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (4) skiptag -> CONTENT . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CLOSESPAN       shift and go to state 38
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 27
+
+state 37
+
+    (16) handlerow -> OPENROW OPENHEADER CONTENT skiptag CLOSEROW handlerow .
+
+    $end            reduce using rule 16 (handlerow -> OPENROW OPENHEADER CONTENT skiptag CLOSEROW handlerow .)
+
+
+state 38
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN . OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (8) skiptag -> CLOSESPAN . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    OPENHREF        shift and go to state 39
+    CONTENT         shift and go to state 14
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 28
+
+state 39
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF . CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (5) skiptag -> OPENHREF . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CONTENT         shift and go to state 40
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 29
+
+state 40
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT . CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (4) skiptag -> CONTENT . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CLOSEHREF       shift and go to state 41
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 27
+
+state 41
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF . CLOSESPAN CLOSEDATA handleData
+    (6) skiptag -> CLOSEHREF . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+    CLOSESPAN       shift and go to state 42
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+    CLOSEDATA       reduce using rule 12 (skiptag -> .)
+
+    skiptag                        shift and go to state 30
+
+state 42
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN . CLOSEDATA handleData
+    (8) skiptag -> CLOSESPAN . skiptag
+    (4) skiptag -> . CONTENT skiptag
+    (5) skiptag -> . OPENHREF skiptag
+    (6) skiptag -> . CLOSEHREF skiptag
+    (7) skiptag -> . OPENSPAN skiptag
+    (8) skiptag -> . CLOSESPAN skiptag
+    (9) skiptag -> . OPENHEADER skiptag
+    (10) skiptag -> . CLOSEHEADER skiptag
+    (11) skiptag -> . IMG skiptag
+    (12) skiptag -> .
+
+  ! shift/reduce conflict for CLOSEDATA resolved as shift
+    CLOSEDATA       shift and go to state 43
+    CONTENT         shift and go to state 14
+    OPENHREF        shift and go to state 16
+    CLOSEHREF       shift and go to state 17
+    OPENSPAN        shift and go to state 22
+    CLOSESPAN       shift and go to state 15
+    OPENHEADER      shift and go to state 18
+    CLOSEHEADER     shift and go to state 19
+    IMG             shift and go to state 20
+
+  ! CLOSEDATA       [ reduce using rule 12 (skiptag -> .) ]
+
+    skiptag                        shift and go to state 28
+
+state 43
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA . handleData
+    (13) handleData -> . OPENDATA skiptag CLOSEDATA handleData
+    (14) handleData -> . OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData
+    (15) handleData -> .
+
+    OPENDATA        shift and go to state 9
+    CLOSEROW        reduce using rule 15 (handleData -> .)
+
+    handleData                     shift and go to state 44
+
+state 44
+
+    (14) handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData .
+
+    CLOSEROW        reduce using rule 14 (handleData -> OPENDATA OPENSPAN OPENSPAN CONTENT CLOSESPAN OPENHREF CONTENT CLOSEHREF CLOSESPAN CLOSEDATA handleData .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for CLOSEDATA in state 42 resolved as shift
